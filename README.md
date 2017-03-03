@@ -8,7 +8,7 @@ https://github.com/dpressel/rude-carnie
 You can find a pre-trained age checkpoint for inception here:
 https://drive.google.com/drive/folders/0B8N1oYmGLVGWbDZ4Y21GLWxtV1E
 因为被墙，在这提供百度网盘下载链接，下载后解压到本地工程里面的22801目录
-
+http://pan.baidu.com/s/1mhLBIHy
 ### 运行步骤
 ```
 python2.7 guess.py --model_type inception --model_dir ./22801 --filename test1.jpg
