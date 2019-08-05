@@ -122,7 +122,7 @@ def _process_image(filename, coder):
     width: integer, image width in pixels.
     """
     # Read the image file.
-    with tf.gfile.FastGFile(filename, 'r') as f:
+    with tf.gfile.FastGFile(filename, 'rb') as f:
         image_data = f.read()
 
     # Convert any PNG to JPEG's for consistency.
@@ -237,7 +237,7 @@ def _process_image_files(name, filenames, labels, num_shards):
 def _find_image_files(list_file, data_dir):
     print('Determining list of input files and labels from %s.' % list_file)
     files_labels = [l.strip().split(' ') for l in tf.gfile.FastGFile(
-        list_file, 'r').readlines()]
+        list_file, 'rb').readlines()]
 
     labels = []
     filenames = []

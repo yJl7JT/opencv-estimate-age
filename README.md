@@ -4,7 +4,6 @@ TensorFlow年龄识别演示例子
 ## 代码源
 https://github.com/yJl7JT/opencv-estimate-age
 
-
 ### 模型下载
 You can find a pre-trained age checkpoint for inception here:
 https://drive.google.com/drive/folders/0B8N1oYmGLVGWbDZ4Y21GLWxtV1E
@@ -12,11 +11,10 @@ https://drive.google.com/drive/folders/0B8N1oYmGLVGWbDZ4Y21GLWxtV1E
 http://pan.baidu.com/s/1mhLBIHy
 ### 运行步骤
 ```
-python2.7 guess.py --model_type inception --model_dir ./22801 --filename test1.jpg
+python3.6 guess.py --model_type inception --model_dir ./22801 --filename test1.jpg
 ```
 test1.jpg是拍的人像数据
-需要安装python2.7、openCV3.0、tensorFlow1.0环境。
-Ubuntu环境为14.04LTS
+需要安装python3.6
 如果没有安装openCV环境，则会出现以下问题：
 ```
   Traceback (most recent call last):
