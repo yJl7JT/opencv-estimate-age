@@ -2,7 +2,7 @@ TensorFlow年龄识别演示例子
 ==========================================================
 
 ## 代码源
-https://github.com/dpressel/rude-carnie
+https://github.com/yJl7JT/opencv-estimate-age
 
 ### 模型下载
 You can find a pre-trained age checkpoint for inception here:
