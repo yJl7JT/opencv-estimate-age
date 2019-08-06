@@ -51,47 +51,50 @@ def classify(sess, label_list, softmax_output, coder, images, image_file):
         print('Guess @ 2 %s, prob = %.2f' % (label_list[second_best], output[second_best]))
     return best_choice
          
-
+def make_batch1(filename,coder):
+    image_data = tf.gfile.FastGFile(filename, 'rb').read()
+    image = coder.decode_jpeg(image_data)
+    # image = ic.decode_jpeg(image_data)
+    crop = tf.image.resize_images(image, (RESIZE_FINAL, RESIZE_FINAL))
+    image_batch = tf.stack([crop])
 
 def main(argv=None):
     with tf.Session() as sess:
-        images = tf.placeholder(tf.float32, [None, RESIZE_FINAL, RESIZE_FINAL, 3])
-        logits = inception_v3(len(AGE_LIST), images, 1, False)
+        nlabels = len(AGE_LIST)
+        from model import inception_v3
+        images = tf.placeholder(tf.float32, [None, 227, 227, 3])
+        logits = inception_v3(nlabels, images, 1, False)
         init = tf.global_variables_initializer()
+
         saver = tf.train.Saver()
         saver.restore(sess, 'D:\\model\\age\\inception\\checkpoint-14999')
+
         softmax_output = tf.nn.softmax(logits)
+
         coder = ImageCoder()
-        image_file = FLAGS.filename
-        try:
-            image_batch = make_batch(image_file, coder, True)
-            batch_results = sess.run(softmax_output, feed_dict={images: image_batch.eval()})
 
-            # img = cv2.resize(cv2.imread(image_file), (227, 227, 3))
-            # batch_results = sess.run(softmax_output, feed_dict={
-            #     images: np.reshape(img, [-1, 224, 224, 3])
-            # })
+        image_data = tf.gfile.FastGFile("test1.jpg", 'rb').read()
+        image = coder.decode_jpeg(image_data)
+        crop = tf.image.resize_images(image, (RESIZE_FINAL, RESIZE_FINAL))
+        image_batch = tf.stack([crop])
 
-            output = batch_results[0]
-            batch_sz = batch_results.shape[0]
-            for i in range(1, batch_sz):
-                output = output + batch_results[i]
+        batch_results = sess.run(softmax_output, feed_dict={images: image_batch.eval()})
+        output = batch_results[0]
+        batch_sz = batch_results.shape[0]
+        for i in range(1, batch_sz):
+            output = output + batch_results[i]
 
-            output /= batch_sz
-            best = np.argmax(output)
-            best_choice = (AGE_LIST[best], output[best])
-            print('Guess @ 1 %s, prob = %.2f' % best_choice)
+        output /= batch_sz
+        best = np.argmax(output)
+        best_choice = (AGE_LIST[best], output[best])
+        print('Guess @ 1 %s, prob = %.2f' % best_choice)
 
-            nlabels = len(AGE_LIST)
-            if nlabels > 2:
-                output[best] = 0
-                second_best = np.argmax(output)
+        nlabels = len(AGE_LIST)
+        if nlabels > 2:
+            output[best] = 0
+            second_best = np.argmax(output)
 
-                print('Guess @ 2 %s, prob = %.2f' % (AGE_LIST[second_best], output[second_best]))
-        except Exception as e:
-            print(e)
-            print('Failed to run image %s ' % image_file)
+            print('Guess @ 2 %s, prob = %.2f' % (AGE_LIST[second_best], output[second_best]))
 
-        
 if __name__ == '__main__':
     tf.app.run()
