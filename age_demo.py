@@ -1,24 +1,9 @@
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
-
-from datetime import datetime
-import math
-import time
-from data import inputs
 import numpy as np
 import tensorflow as tf
-from model import select_model, get_checkpoint
 from utils import ImageCoder, make_batch, FaceDetector
-import os
-import json
-import csv
-from model import inception_v3
-import cv2
-
-'''
---filename test1.jpg
-'''
 
 RESIZE_FINAL = 227
 AGE_LIST = ['(0, 2)','(4, 6)','(8, 12)','(15, 20)','(25, 32)','(38, 43)','(48, 53)','(60, 100)']
@@ -68,9 +53,7 @@ def main(argv=None):
 
         saver = tf.train.Saver()
         saver.restore(sess, 'D:\\model\\age\\inception\\checkpoint-14999')
-
         softmax_output = tf.nn.softmax(logits)
-
         coder = ImageCoder()
 
         image_data = tf.gfile.FastGFile("test1.jpg", 'rb').read()
