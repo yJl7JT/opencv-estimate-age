@@ -7,7 +7,7 @@ def freeze_graph(input_checkpoint, output_graph):
     :param output_graph: PB模型保存路径
     :return:
     '''
-    output_node_names = "output/biases"
+    output_node_names = "softmax"
     saver = tf.train.import_meta_graph(input_checkpoint + '.meta', clear_devices=True)
     graph = tf.get_default_graph()
     input_graph_def = graph.as_graph_def()
@@ -24,4 +24,4 @@ def freeze_graph(input_checkpoint, output_graph):
         for op in graph.get_operations():
             print(op.name, op.values())
 
-freeze_graph('D:/model/age/inception/checkpoint-14999','./model/checkpoint-14999.pb')
+freeze_graph('../ckpt/ckpt/model.ckpt','age1.pb')
