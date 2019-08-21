@@ -145,4 +145,5 @@ def make_batch(filename, coder, multicrop):
             crops.append(standardize_image(flipped))
 
     image_batch = tf.stack(crops)
+    print("一共多少张图片",image_batch.shape)
     return image_batch

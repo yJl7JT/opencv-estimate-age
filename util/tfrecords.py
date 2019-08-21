@@ -1,5 +1,5 @@
 import tensorflow as tf
-
+import  numpy as np
 class ImageCoder(object):
     """
     Helper class that provides TensorFlow image coding utilities.
@@ -60,6 +60,8 @@ def _process_image(filename, coder):
         crops.append(tf.image.per_image_standardization(flipped))
 
     image_batch = tf.stack(crops)
+
+    print("一共多少图片",np.array(image_batch).shape)
     return image_batch
 
 '''

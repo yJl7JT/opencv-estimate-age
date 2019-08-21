@@ -15,14 +15,15 @@ import json
 import csv
 
 '''
---model_type inception --model_dir D:\model\age\inception --filename test1.jpg
+--model_type inception --model_dir D:\model\age\inception --filename D:/tmp/child-64x64x3-3.jpg
 '''
+
 
 RESIZE_FINAL = 227
 GENDER_LIST =['M','F']
 AGE_LIST = ['(0, 2)','(4, 6)','(8, 12)','(15, 20)','(25, 32)','(38, 43)','(48, 53)','(60, 100)']
 
-tf.app.flags.DEFINE_string('model_dir', '',
+tf.app.flags.DEFINE_string('model_dir', 'D:/model/age/inception',
                            'Model directory (where training data lives)')
 
 tf.app.flags.DEFINE_string('class_type', 'age',
@@ -32,7 +33,7 @@ tf.app.flags.DEFINE_string('class_type', 'age',
 tf.app.flags.DEFINE_string('device_id', '/cpu:0',
                            'What processing unit to execute inference on')
 
-tf.app.flags.DEFINE_string('filename', '',
+tf.app.flags.DEFINE_string('filename', 'D:/tmp/227/122222.jpg',
                            'File (Image) or File list (Text/No header TSV) to process')
 
 tf.app.flags.DEFINE_string('target', '',
@@ -41,7 +42,7 @@ tf.app.flags.DEFINE_string('target', '',
 tf.app.flags.DEFINE_string('checkpoint', 'checkpoint',
                           'Checkpoint basename')
 
-tf.app.flags.DEFINE_string('model_type', 'default',
+tf.app.flags.DEFINE_string('model_type', 'inception',
                            'Type of convnet')
 
 tf.app.flags.DEFINE_string('requested_step', '', 'Within the model directory, a requested step to restore e.g., 9000')

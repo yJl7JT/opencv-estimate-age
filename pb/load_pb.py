@@ -77,7 +77,7 @@ with tf.Graph().as_default() as graph:
     with tf.Session() as sess:
         print("load Graph")
 
-        with gfile.FastGFile("age1.pb", "rb") as f:
+        with gfile.FastGFile("C:/Users/小松/Desktop/age1.pb", "rb") as f:
 
             graph_def = tf.GraphDef()
             graph_def.ParseFromString(f.read())
